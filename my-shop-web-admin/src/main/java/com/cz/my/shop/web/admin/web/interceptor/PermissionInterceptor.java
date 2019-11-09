@@ -1,14 +1,14 @@
 package com.cz.my.shop.web.admin.web.interceptor;
 
 import com.cz.my.shop.commons.constant.ConstantUtils;
-import com.cz.my.shop.domain.User;
+import com.cz.my.shop.domain.TbUser;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * 权限拦截器
+ * 权限拦截器：如果用户已登录的情况下访问登录页则会跳转至首页。
  *
  * @author CHANG Zheng
  * @version 1.0.0
@@ -30,10 +30,10 @@ public class PermissionInterceptor implements HandlerInterceptor
         // 以login结尾的请求
         if (modelAndView.getViewName().endsWith("login"))
         {
-            final User user = (User) httpServletRequest.getSession()
+            final TbUser tbUser = (TbUser) httpServletRequest.getSession()
                 .getAttribute(ConstantUtils.SESSION_USER);
 
-            if (user != null)
+            if (tbUser != null)
             {
                 httpServletResponse.sendRedirect("/main");
             }

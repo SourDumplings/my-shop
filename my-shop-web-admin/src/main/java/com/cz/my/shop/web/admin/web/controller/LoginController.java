@@ -2,12 +2,13 @@ package com.cz.my.shop.web.admin.web.controller;
 
 import com.cz.my.shop.commons.constant.ConstantUtils;
 import com.cz.my.shop.commons.utils.CookieUtils;
-import com.cz.my.shop.domain.User;
-import com.cz.my.shop.web.admin.service.UserService;
+import com.cz.my.shop.domain.TbUser;
+import com.cz.my.shop.web.admin.service.TbUserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoginController
 {
     @Autowired
-    private UserService userService;
+    private TbUserService tbUserService;
 
     private static final String COOKIE_NAME_USER_NAME = "userInfo";
 
@@ -59,6 +60,7 @@ public class LoginController
     public String login(@RequestParam(required = true) String email,
         @RequestParam(required = true) String password,
         @RequestParam(required = false) String isRemember,
+        Model model,
         HttpServletRequest request, HttpServletResponse response)
     {
         // 用户未勾选“记住我”
@@ -67,12 +69,13 @@ public class LoginController
             CookieUtils.deleteCookie(request, response, COOKIE_NAME_USER_NAME);
         }
 
-        final User user = userService.login(email, password);
+        final TbUser tbUser = tbUserService.login(email, password);
 
         // 登录失败
-        if (user == null)
+        if (tbUser == null)
         {
-            request.setAttribute("message", "登录失败，邮箱或密码错误");
+            // request.setAttribute("message", "登录失败，邮箱或密码错误");
+            model.addAttribute("message", "登录失败，邮箱或密码错误");
             return login(request);
         }
         // 登录成功
@@ -90,7 +93,7 @@ public class LoginController
             }
 
             // 将登录信息放入会话
-            request.getSession().setAttribute(ConstantUtils.SESSION_USER, user);
+            request.getSession().setAttribute(ConstantUtils.SESSION_USER, tbUser);
             // 重定向到main
             return "redirect:/main";
         }

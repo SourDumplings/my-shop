@@ -52,5 +52,12 @@
       <artifactId>jstl</artifactId>
     </dependency>
     <!-- Servlet End -->
+
+    <!-- Commons Begin -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+    </dependency>
+    <!-- Commons End -->
   </dependencies>
 </project>

@@ -30,7 +30,7 @@
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li class="active">用户管理</li>
+                <li class="active">控制面板</li>
             </ol>
         </section>
 
@@ -39,12 +39,22 @@
             <!-- /.row -->
             <div class="row">
                 <div class="col-xs-12">
+                    <c:if test="${baseResult != null}">
+                        <div class="alert alert-${baseResult.status == 200 ? "success" : "danger"} alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert"
+                                    aria-hidden="true">
+                                &times;
+                            </button>
+                                ${baseResult.message}
+                        </div>
+                    </c:if>
+
                     <div class="box">
                         <div class="box-header">
                             <h3 class="box-title">用户列表</h3>
 
                             <div class="row" style="padding-left: 12px; padding-top: 10px">
-                                <a href="#" type="button"
+                                <a href="/user/form" type="button"
                                    class="btn btn-primary btn-sm"><i
                                         class="fa fa-plus"></i> 新增</a>&nbsp;&nbsp;&nbsp;
                                 <a href="#" type="button"

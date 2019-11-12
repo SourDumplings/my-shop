@@ -1,5 +1,6 @@
 package com.cz.my.shop.web.admin.service;
 
+import com.cz.my.shop.commons.dto.BaseResult;
 import com.cz.my.shop.domain.TbUser;
 import java.util.List;
 
@@ -62,4 +63,11 @@ public interface TbUserService
      * @return
      */
     TbUser login(String email, String password);
+
+    /**
+     * 保存用户信息
+     *
+     * @param tbUser
+     */
+    BaseResult save(TbUser tbUser);
 }

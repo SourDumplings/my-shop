@@ -70,4 +70,12 @@ public interface TbUserService
      * @param tbUser
      */
     BaseResult save(TbUser tbUser);
+
+    /**
+     * 搜索
+     *
+     * @param tbUser
+     * @return
+     */
+    List<TbUser> search(TbUser tbUser);
 }

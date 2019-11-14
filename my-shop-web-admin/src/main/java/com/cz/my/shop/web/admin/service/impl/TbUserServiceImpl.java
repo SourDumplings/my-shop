@@ -143,4 +143,9 @@ public class TbUserServiceImpl implements TbUserService
 
         return baseResult;
     }
+
+    public List<TbUser> search(TbUser tbUser)
+    {
+        return tbUserDao.search(tbUser);
+    }
 }

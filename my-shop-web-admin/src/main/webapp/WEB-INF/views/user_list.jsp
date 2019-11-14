@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 <head>
@@ -53,32 +54,72 @@
                         <div class="box-header">
                             <h3 class="box-title">用户列表</h3>
 
-                            <div class="row" style="padding-left: 12px; padding-top: 10px">
-                                <a href="/user/form" type="button"
-                                   class="btn btn-primary btn-sm"><i
-                                        class="fa fa-plus"></i> 新增</a>&nbsp;&nbsp;&nbsp;
-                                <a href="#" type="button"
-                                   class="btn btn-danger btn-sm"><i
-                                        class="fa fa-trash"></i> 删除</a>&nbsp;&nbsp;&nbsp;
-                                <a href="#" type="button"
-                                   class="btn btn-default btn-sm"><i
-                                        class="fa fa-level-down"></i> 导入</a>&nbsp;&nbsp;&nbsp;
-                                <a href="#" type="button"
-                                   class="btn btn-default btn-sm"><i
-                                        class="fa fa-level-up"></i> 导出</a>&nbsp;&nbsp;&nbsp;
-
+                            <div class="row" style="padding-left: 12px; padding-top: 20px">
+                                <div class="col-xs-12">
+                                    <a href="/user/form" type="button"
+                                       class="btn btn-primary btn-sm"><i
+                                            class="fa fa-plus"></i> 新增</a>&nbsp;&nbsp;&nbsp;
+                                    <a href="#" type="button"
+                                       class="btn btn-danger btn-sm"><i
+                                            class="fa fa-trash"></i> 删除</a>&nbsp;&nbsp;&nbsp;
+                                    <a href="#" type="button"
+                                       class="btn btn-default btn-sm"><i
+                                            class="fa fa-level-down"></i> 导入</a>&nbsp;&nbsp;&nbsp;
+                                    <a href="#" type="button"
+                                       class="btn btn-default btn-sm"><i
+                                            class="fa fa-level-up"></i> 导出</a>&nbsp;&nbsp;
+                                </div>
                             </div>
 
-                            <div class="box-tools">
-                                <div class="input-group input-group-sm" style="width: 150px;">
-                                    <input type="text" name="table_search"
-                                           class="form-control pull-right" placeholder="搜索">
+                            <div class="row" style="margin-top: 20px">
+                                <form:form action="/user/search" method="post"
+                                           modelAttribute="tbUser" cssClass="form-horizontal">
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <div class="form-group">
+                                                <label for="username"
+                                                       class="col-sm-3 control-label">姓名</label>
 
-                                    <div class="input-group-btn">
-                                        <button type="submit" class="btn btn-default"><i
-                                                class="fa fa-search"></i></button>
+                                                <div class="col-sm-8">
+                                                    <form:input path="username"
+                                                                cssClass="form-control"
+                                                                placeholder="姓名"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <div class="form-group">
+                                                <label for="email"
+                                                       class="col-sm-3 control-label">邮箱</label>
+
+                                                <div class="col-sm-8">
+                                                    <form:input path="email"
+                                                                cssClass="form-control"
+                                                                placeholder="邮箱"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <div class="form-group">
+                                                <label for="phone"
+                                                       class="col-sm-3 control-label">手机号</label>
+
+                                                <div class="col-sm-8">
+                                                    <form:input path="phone"
+                                                                cssClass="form-control"
+                                                                placeholder="手机号"/>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+
+                                    <div class="row" style="padding-right: 30px">
+                                        <div class="col-xs-12">
+                                            <button type="submit" class="btn btn-info pull-right">搜索
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form:form>
                             </div>
                         </div>
                         <!-- /.box-header -->

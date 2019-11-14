@@ -65,4 +65,12 @@ public interface TbUserDao
      * @return
      */
     List<TbUser> selectByUsername(String username);
+
+    /**
+     * 搜索
+     *
+     * @param tbUser
+     * @return
+     */
+    List<TbUser> search(TbUser tbUser);
 }

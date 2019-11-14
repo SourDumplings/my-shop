@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 <head>
@@ -56,44 +57,43 @@
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form class="form-horizontal" action="/user/save" method="post">
+                        <form:form id="inputForm" cssClass="form-horizontal" action="/user/save"
+                                   modelAttribute="tbUser">
                             <div class="box-body">
                                 <div class="form-group">
-                                    <label for="inputEmail"
+                                    <label for="email"
                                            class="col-sm-2 control-label">邮箱</label>
 
                                     <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="inputEmail"
-                                               name="email"
-                                               placeholder="请输入邮箱地址">
+                                        <form:input path="email" cssClass="form-control required email"
+                                                    placeholder="请输入邮箱地址"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputPassword"
+                                    <label for="password"
                                            class="col-sm-2 control-label">密码</label>
 
                                     <div class="col-sm-10">
-                                        <input type="password" class="form-control"
-                                               id="inputPassword" name="password"
-                                               placeholder="请输入邮箱地址">
+                                        <form:password path="password" cssClass="form-control required"
+                                                    placeholder="请输入用户的密码"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputUsername"
+                                    <label for="username"
                                            class="col-sm-2 control-label">姓名</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="username"
-                                               id="inputUsername" placeholder="请输入用户的姓名">
+                                        <form:input path="username" cssClass="form-control required"
+                                                    placeholder="请输入用户的姓名"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputPhone"
+                                    <label for="phone"
                                            class="col-sm-2 control-label">手机</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="phone"
-                                               id="inputPhone" placeholder="请输入用户的手机号">
+                                        <form:input path="phone" cssClass="form-control required mobile"
+                                                    placeholder="请输入用户的手机号"/>
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +106,8 @@
                                 </button>
                             </div>
                             <!-- /.box-footer -->
-                        </form>
+                        </form:form>
+                        <!-- form end -->
                     </div>
                 </div>
             </div>

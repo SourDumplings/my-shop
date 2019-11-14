@@ -10,7 +10,7 @@ var Validate = function ()
    */
   var handlerInit = function ()
   {
-    console.log("handlerInit()");
+    // console.log("handlerInit()");
 
     $.validator.addMethod("mobile", function (value, element)
     {

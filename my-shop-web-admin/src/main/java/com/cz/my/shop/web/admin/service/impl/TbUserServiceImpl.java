@@ -148,4 +148,9 @@ public class TbUserServiceImpl implements TbUserService
     {
         return tbUserDao.search(tbUser);
     }
+
+    public void deleteMulti(String[] ids)
+    {
+        tbUserDao.deleteMulti(ids);
+    }
 }

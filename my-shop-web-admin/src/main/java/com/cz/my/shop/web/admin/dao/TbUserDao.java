@@ -2,6 +2,7 @@ package com.cz.my.shop.web.admin.dao;
 
 import com.cz.my.shop.domain.TbUser;
 import java.util.List;
+import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -80,4 +81,19 @@ public interface TbUserDao
      * @param ids
      */
     void deleteMulti(String[] ids);
+
+    /**
+     * 分页查询
+     *
+     * @param map start/起始页 length/每页的记录数
+     * @return
+     */
+    List<TbUser> page(Map<String, Object> map);
+
+    /**
+     * 查询总记录数
+     *
+     * @return
+     */
+    int count();
 }

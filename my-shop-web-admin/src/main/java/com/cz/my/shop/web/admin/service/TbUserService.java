@@ -1,6 +1,7 @@
 package com.cz.my.shop.web.admin.service;
 
 import com.cz.my.shop.commons.dto.BaseResult;
+import com.cz.my.shop.commons.dto.PageInfo;
 import com.cz.my.shop.domain.TbUser;
 import java.util.List;
 
@@ -85,4 +86,20 @@ public interface TbUserService
      * @param ids
      */
     void deleteMulti(String[] ids);
+
+    /**
+     * 分页查询
+     *
+     * @param start
+     * @param length
+     * @return
+     */
+    PageInfo<TbUser> page(int start, int length, int draw);
+
+    /**
+     * 查询总记录数
+     *
+     * @return
+     */
+    int count();
 }

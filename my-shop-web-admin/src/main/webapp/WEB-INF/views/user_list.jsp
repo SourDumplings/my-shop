@@ -110,34 +110,34 @@
                     <div class="box">
                         <div class="box-header">
                             <h3 class="box-title">用户列表</h3>
-
-                            <div class="row" style="padding-left: 12px; padding-top: 20px">
-                                <div class="col-xs-12">
-                                    <a href="/user/form" type="button"
-                                       class="btn btn-primary btn-sm"><i
-                                            class="fa fa-plus"></i> 新增</a>&nbsp;&nbsp;&nbsp;
-                                    <button type="button" onclick="App.deleteMulti('/user/delete')"
-                                            class="btn btn-danger btn-sm"><i
-                                            class="fa fa-trash"></i> 删除
-                                    </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="#" type="button"
-                                       class="btn btn-default btn-sm"><i
-                                            class="fa fa-level-down"></i> 导入</a>&nbsp;&nbsp;&nbsp;
-                                    <a href="#" type="button"
-                                       class="btn btn-default btn-sm"><i
-                                            class="fa fa-level-up"></i> 导出</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <button type="button"
-                                            onclick="$('.box-info-search').css('display') == 'none' ? $('.box-info-search').show('fast') : $('.box-info-search').hide('fast')"
-                                            class="btn btn-primary btn-sm"><i
-                                            class="fa fa-search"></i> 搜索
-                                    </button>
-                                </div>
-                            </div>
-
                         </div>
+
+                        <div class="box-body">
+                            <div class="col-xs-12">
+                                <a href="/user/form" type="button"
+                                   class="btn btn-primary btn-sm"><i
+                                        class="fa fa-plus"></i> 新增</a>&nbsp;&nbsp;&nbsp;
+                                <button type="button" onclick="App.deleteMulti('/user/delete')"
+                                        class="btn btn-danger btn-sm"><i
+                                        class="fa fa-trash"></i> 删除
+                                </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="#" type="button"
+                                   class="btn btn-default btn-sm"><i
+                                        class="fa fa-level-down"></i> 导入</a>&nbsp;&nbsp;&nbsp;
+                                <a href="#" type="button"
+                                   class="btn btn-default btn-sm"><i
+                                        class="fa fa-level-up"></i> 导出</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button type="button"
+                                        onclick="$('.box-info-search').css('display') == 'none' ? $('.box-info-search').show('fast') : $('.box-info-search').hide('fast')"
+                                        class="btn btn-primary btn-sm"><i
+                                        class="fa fa-search"></i> 搜索
+                                </button>
+                            </div>
+                        </div>
+
                         <!-- /.box-header -->
-                        <div class="box-body table-responsive no-padding">
-                            <table class="table table-hover">
+                        <div class="box-body table-responsive">
+                            <table class="table table-hover" id="dataTable">
                                 <thead>
                                 <tr>
                                     <th><input id="${tbUser.id}" type="checkbox"
@@ -151,29 +151,30 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${tbUsers}" var="tbUser">
-                                    <tr>
-                                        <td><input id="${tbUser.id}" type="checkbox"
-                                                   class="minimal"/></td>
-                                        <td>${tbUser.id}</td>
-                                        <td>${tbUser.username}</td>
-                                        <td>${tbUser.phone}</td>
-                                        <td>${tbUser.email}</td>
-                                        <td><fmt:formatDate value="${tbUser.updated}"
-                                                            pattern="yyyy-MM-dd HH:MM:ss"/>
-                                        </td>
-                                        <td>
-                                            <a href="#" type="button"
-                                               class="btn btn-default btn-sm"><i
-                                                    class="fa fa-search"></i> 查看</a>&nbsp;&nbsp;&nbsp;
-                                            <a href="#" type="button"
-                                               class="btn btn-primary btn-sm"><i
-                                                    class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;
-                                            <a href="#" type="button" class="btn btn-danger btn-sm"><i
-                                                    class="fa fa-trash"></i> 删除</a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
+                                <%-- 不分页 --%>
+                                <%--                                <c:forEach items="${tbUsers}" var="tbUser">--%>
+                                <%--                                    <tr>--%>
+                                <%--                                        <td><input id="${tbUser.id}" type="checkbox"--%>
+                                <%--                                                   class="minimal"/></td>--%>
+                                <%--                                        <td>${tbUser.id}</td>--%>
+                                <%--                                        <td>${tbUser.username}</td>--%>
+                                <%--                                        <td>${tbUser.phone}</td>--%>
+                                <%--                                        <td>${tbUser.email}</td>--%>
+                                <%--                                        <td><fmt:formatDate value="${tbUser.updated}"--%>
+                                <%--                                                            pattern="yyyy-MM-dd HH:MM:ss"/>--%>
+                                <%--                                        </td>--%>
+                                <%--                                        <td>--%>
+                                <%--                                            <a href="#" type="button"--%>
+                                <%--                                               class="btn btn-default btn-sm"><i--%>
+                                <%--                                                    class="fa fa-search"></i> 查看</a>&nbsp;&nbsp;&nbsp;--%>
+                                <%--                                            <a href="#" type="button"--%>
+                                <%--                                               class="btn btn-primary btn-sm"><i--%>
+                                <%--                                                    class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;--%>
+                                <%--                                            <a href="#" type="button" class="btn btn-danger btn-sm"><i--%>
+                                <%--                                                    class="fa fa-trash"></i> 删除</a>--%>
+                                <%--                                        </td>--%>
+                                <%--                                    </tr>--%>
+                                <%--                                </c:forEach>--%>
                                 </tbody>
                             </table>
                         </div>
@@ -195,6 +196,39 @@
 
 <%-- 自定义模态框 --%>
 <sys:modal/>
+
+<script>
+  $(function ()
+  {
+    var _columns = [
+      {
+        "data": function (row, type, val, meta)
+        {
+          return '<input id="' + row.id
+              + '" type="checkbox" class="minimal"/>'
+        }
+      },
+      {"data": "id"},
+      {"data": "username"},
+      {"data": "phone"},
+      {"data": "email"},
+      {"data": "updated"},
+      {
+        "data": function (row, type, val, meta)
+        {
+          return '<a href="#" type="button" class="btn btn-default btn-sm"><i class="fa fa-search"></i> 查看</a>&nbsp;&nbsp;&nbsp;'
+              +
+              ' <a href="#" type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;'
+              +
+              '<a href="#" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> 删除</a>';
+        }
+      }
+    ];
+
+    App.initDataTables("/user/page", _columns);
+  });
+
+</script>
 
 </body>
 </html>

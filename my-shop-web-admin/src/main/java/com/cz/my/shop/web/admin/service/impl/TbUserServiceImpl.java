@@ -1,12 +1,15 @@
 package com.cz.my.shop.web.admin.service.impl;
 
 import com.cz.my.shop.commons.dto.BaseResult;
+import com.cz.my.shop.commons.dto.PageInfo;
 import com.cz.my.shop.commons.utils.RegexpUtils;
 import com.cz.my.shop.domain.TbUser;
 import com.cz.my.shop.web.admin.dao.TbUserDao;
 import com.cz.my.shop.web.admin.service.TbUserService;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -144,13 +147,38 @@ public class TbUserServiceImpl implements TbUserService
         return baseResult;
     }
 
+    @Override
     public List<TbUser> search(TbUser tbUser)
     {
         return tbUserDao.search(tbUser);
     }
 
+    @Override
     public void deleteMulti(String[] ids)
     {
         tbUserDao.deleteMulti(ids);
+    }
+
+    @Override
+    public PageInfo<TbUser> page(int start, int length, int draw)
+    {
+        Map<String, Object> map = new HashMap<>();
+        map.put("start", start);
+        map.put("length", length);
+
+        PageInfo<TbUser> res = new PageInfo<>();
+        int count = tbUserDao.count();
+        res.setDraw(draw);
+        res.setData(tbUserDao.page(map));
+        res.setRecordsTotal(count);
+        res.setRecordsFiltered(count);
+        res.setError("");
+        return res;
+    }
+
+    @Override
+    public int count()
+    {
+        return tbUserDao.count();
     }
 }

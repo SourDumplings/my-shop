@@ -1,7 +1,7 @@
 package com.cz.my.shop.domain;
 
+import com.cz.my.shop.commons.persistence.BaseEntity;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author CHANG Zheng
@@ -9,25 +9,12 @@ import java.util.Date;
  * @projectName my-shop
  * @date 2019/11/9 8:26
  */
-public class TbUser implements Serializable
+public class TbUser extends BaseEntity implements Serializable
 {
-    private String id;
     private String username;
     private String password;
     private String phone;
     private String email;
-    private Date created;
-    private Date updated;
-
-    public String getId()
-    {
-        return id;
-    }
-
-    public void setId(String id)
-    {
-        this.id = id;
-    }
 
     public String getUsername()
     {
@@ -67,25 +54,5 @@ public class TbUser implements Serializable
     public void setEmail(String email)
     {
         this.email = email;
-    }
-
-    public Date getCreated()
-    {
-        return created;
-    }
-
-    public void setCreated(Date created)
-    {
-        this.created = created;
-    }
-
-    public Date getUpdated()
-    {
-        return updated;
-    }
-
-    public void setUpdated(Date updated)
-    {
-        this.updated = updated;
     }
 }

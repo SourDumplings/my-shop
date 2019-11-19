@@ -59,5 +59,20 @@
       <artifactId>commons-lang3</artifactId>
     </dependency>
     <!-- Commons End -->
+
+    <!-- Json Begin -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+    </dependency>
+    <!-- Json End -->
   </dependencies>
 </project>

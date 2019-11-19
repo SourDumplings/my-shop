@@ -1,6 +1,7 @@
 package com.cz.my.shop.domain;
 
 import com.cz.my.shop.commons.persistence.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 
 /**
@@ -26,6 +27,7 @@ public class TbUser extends BaseEntity implements Serializable
         this.username = username;
     }
 
+    @JsonIgnore
     public String getPassword()
     {
         return password;

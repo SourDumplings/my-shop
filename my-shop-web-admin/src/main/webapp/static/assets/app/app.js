@@ -62,6 +62,7 @@ var App = function ()
     });
     // console.log(_idArray);
 
+    // 判断用户是否选择了数据项
     if (_idArray.length === 0)
     {
       $('#modal-message').html("您还没有选择任何数据项，请至少选择一项。");
@@ -71,8 +72,10 @@ var App = function ()
       $('#modal-message').html("您确定删除数据项吗？");
 
     }
+    // 点击删除按钮时，弹出模态框
     $('#modal-default').modal('show');
 
+    // 如果用户选择了数据项，调用删除方法
     $('#btnModalOK').bind('click', function ()
     {
       del();
@@ -102,21 +105,30 @@ var App = function ()
             "async": false,  // 设置为同步请求
             "success": function (data)
             {
+              // 请求成功后，无论删除成功或者失败都需要弹出模态框进行提示
+              // 所有这里需要先解绑确定按钮
+              $('#btnModalOK').unbind('click');
+
               if (data.status === 200)
               {
-                window.location.reload();
+                // 删除请求成功，确定按钮绑定刷新页面
+                $('#btnModalOK').bind('click', function ()
+                {
+                  window.location.reload();
+                });
               }
               else
               {
-                $('#btnModalOK').unbind('click');
+                // 删除请求失败，确定按钮绑定模态框隐藏
                 $('#btnModalOK').bind('click', function ()
                 {
                   $('#modal-default').modal('hide');
                 });
-
-                $('#modal-message').html(data.message);
-                $('#modal-default').modal('show');
               }
+
+              // 因为无论如何都需要提示信息，所以这里的模态框是必须调用的
+              $('#modal-message').html(data.message);
+              $('#modal-default').modal('show');
             }
           });
         }, 500);
@@ -126,7 +138,7 @@ var App = function ()
 
   var handlerInitDatatables = function (url, columns)
   {
-    $('#dataTable').DataTable({
+    var _dataTable = $('#dataTable').DataTable({
       "paging": true,
       "info": true,
       "lengthChange": false,
@@ -136,7 +148,10 @@ var App = function ()
       "serverSide": true,
       "deferRender": true,
       "ajax": {
-        "url": url
+        "url": url/*,
+        "data":{
+          "username":"lisi"
+        }*/
       },
       "columns": columns,
       "language": {
@@ -163,12 +178,13 @@ var App = function ()
           "sSortDescending": ": 以降序排列此列"
         }
       },
-      "drawCallback": function ()
+      "drawCallback": function (settings)
       {
         handlerCheckBox();
         handlerCheckboxAll();
       }
     });
+    return _dataTable;
   };
 
   /**
@@ -178,6 +194,7 @@ var App = function ()
    */
   var handlerShowDetail = function (url)
   {
+    // 通过 Ajax 请求 html 的方式将 jsp 装载进模态框中
     $.ajax({
       url: url,
       type: "get",
@@ -191,27 +208,39 @@ var App = function ()
   };
 
   return {
+    /**
+     * 初始化
+     */
     init: function ()
     {
       handlerCheckBox();
       handlerCheckboxAll();
     },
 
-    getCheckbox: function ()
-    {
-      return _checkbox;
-    },
-
+    /**
+     * 批量删除
+     * @param url
+     */
     deleteMulti: function (url)
     {
       handlerDeleteMulti(url);
     },
 
+    /**
+     * 初始化 DataTables
+     * @param url
+     * @param columns
+     * @returns {jQuery}
+     */
     initDataTables: function (url, columns)
     {
-      handlerInitDatatables(url, columns);
+      return handlerInitDatatables(url, columns);
     },
-    
+
+    /**
+     * 显示详情
+     * @param url
+     */
     showDetail: function (url)
     {
       handlerShowDetail(url);

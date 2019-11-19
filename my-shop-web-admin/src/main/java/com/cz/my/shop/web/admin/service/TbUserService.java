@@ -50,14 +50,6 @@ public interface TbUserService
     void update(TbUser tbUser);
 
     /**
-     * 使用用户名模糊查询
-     *
-     * @param username
-     * @return
-     */
-    List<TbUser> selectByUsername(String username);
-
-    /**
      * 用户通过邮箱登录
      *
      * @param email
@@ -73,14 +65,6 @@ public interface TbUserService
     BaseResult save(TbUser tbUser);
 
     /**
-     * 搜索
-     *
-     * @param tbUser
-     * @return
-     */
-    List<TbUser> search(TbUser tbUser);
-
-    /**
      * 批量删除
      *
      * @param ids
@@ -94,12 +78,12 @@ public interface TbUserService
      * @param length
      * @return
      */
-    PageInfo<TbUser> page(int start, int length, int draw);
+    PageInfo<TbUser> page(int start, int length, int draw, TbUser tbUser);
 
     /**
      * 查询总记录数
      *
      * @return
      */
-    int count();
+    int count(TbUser tbUser);
 }

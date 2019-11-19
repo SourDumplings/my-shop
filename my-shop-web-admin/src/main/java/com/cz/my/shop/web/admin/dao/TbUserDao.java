@@ -60,22 +60,6 @@ public interface TbUserDao
     void update(TbUser tbUser);
 
     /**
-     * 使用用户名模糊查询
-     *
-     * @param username
-     * @return
-     */
-    List<TbUser> selectByUsername(String username);
-
-    /**
-     * 搜索
-     *
-     * @param tbUser
-     * @return
-     */
-    List<TbUser> search(TbUser tbUser);
-
-    /**
      * 批量删除
      *
      * @param ids
@@ -95,5 +79,5 @@ public interface TbUserDao
      *
      * @return
      */
-    int count();
+    int count(TbUser tbUser);
 }

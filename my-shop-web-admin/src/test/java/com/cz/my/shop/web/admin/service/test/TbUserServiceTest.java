@@ -71,16 +71,6 @@ public class TbUserServiceTest
     }
 
     @Test
-    public void testSelectByUsername()
-    {
-        final List<TbUser> tbUsers = tbUserService.selectByUsername("uni");
-        for (TbUser tbUser : tbUsers)
-        {
-            System.out.println(tbUser.getUsername());
-        }
-    }
-
-    @Test
     public void testLogin()
     {
         final TbUser czTest = tbUserService.login("czTest@cz.com", "123456");

@@ -59,6 +59,7 @@
                         <!-- form start -->
                         <form:form id="inputForm" cssClass="form-horizontal" action="/user/save"
                                    modelAttribute="tbUser">
+                            <form:hidden path="id"/>
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="email"

@@ -171,6 +171,25 @@ var App = function ()
     });
   };
 
+  /**
+   * 查看详情
+   *
+   * @param url
+   */
+  var handlerShowDetail = function (url)
+  {
+    $.ajax({
+      url: url,
+      type: "get",
+      dataType: "html",
+      success: function (data)
+      {
+        $('#modal-detail-body').html(data);
+        $('#modal-detail').modal('show');
+      }
+    });
+  };
+
   return {
     init: function ()
     {
@@ -187,10 +206,15 @@ var App = function ()
     {
       handlerDeleteMulti(url);
     },
-    
+
     initDataTables: function (url, columns)
     {
-      handlerInitDatatables(url, columns)
+      handlerInitDatatables(url, columns);
+    },
+    
+    showDetail: function (url)
+    {
+      handlerShowDetail(url);
     }
   }
 }();

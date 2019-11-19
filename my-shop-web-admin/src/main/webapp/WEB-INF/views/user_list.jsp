@@ -216,9 +216,12 @@
       {
         "data": function (row, type, val, meta)
         {
-          return '<a href="#" type="button" class="btn btn-default btn-sm"><i class="fa fa-search"></i> 查看</a>&nbsp;&nbsp;&nbsp;'
+          var detailUrl = "/user/detail?id=" + row.id;
+          return '<button type="button" onclick="App.showDetail(\'' + detailUrl
+              + '\')" class="btn btn-default btn-sm"><i class="fa fa-search"></i> 查看</button>&nbsp;&nbsp;&nbsp;'
               +
-              ' <a href="#" type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;'
+              ' <a href="/user/form?id=' + row.id
+              + '" type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;'
               +
               '<a href="#" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> 删除</a>';
         }

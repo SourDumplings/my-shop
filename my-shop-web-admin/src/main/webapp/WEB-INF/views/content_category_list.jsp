@@ -78,8 +78,20 @@
                         <div class="box-body table-responsive">
                             <table class="table table-hover" id="dataTable">
                                 <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>名称</th>
+                                    <th>排序</th>
+                                </tr>
                                 </thead>
                                 <tbody>
+                                    <c:forEach items="${tbContentCategories}" var="tbContentCategory">
+                                        <tr>
+                                            <td>${tbContentCategory.id}</td>
+                                            <td>${tbContentCategory.name}</td>
+                                            <td>${tbContentCategory.sortOrder}</td>
+                                        </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table>
                         </div>

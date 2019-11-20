@@ -1,5 +1,8 @@
 package com.cz.my.shop.web.admin.service;
 
+import com.cz.my.shop.domain.TbContentCategory;
+import java.util.List;
+
 /**
  * @author CHANG Zheng
  * @version 1.0.0
@@ -8,4 +11,5 @@ package com.cz.my.shop.web.admin.service;
  */
 public interface TbContentCategoryService
 {
+    List<TbContentCategory> selectAll();
 }

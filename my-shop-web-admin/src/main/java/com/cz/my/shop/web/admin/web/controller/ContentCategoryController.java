@@ -1,8 +1,11 @@
 package com.cz.my.shop.web.admin.web.controller;
 
+import com.cz.my.shop.domain.TbContentCategory;
 import com.cz.my.shop.web.admin.service.TbContentCategoryService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -22,8 +25,10 @@ public class ContentCategoryController
     private TbContentCategoryService tbContentCategoryService;
 
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public String list()
+    public String list(Model model)
     {
+        final List<TbContentCategory> tbContentCategories = tbContentCategoryService.selectAll();
+        model.addAttribute("tbContentCategories", tbContentCategories);
         return "content_category_list";
     }
 }

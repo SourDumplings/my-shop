@@ -2,7 +2,10 @@ package com.cz.my.shop.web.admin.web.controller;
 
 import com.cz.my.shop.domain.TbContentCategory;
 import com.cz.my.shop.web.admin.service.TbContentCategoryService;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,8 +30,41 @@ public class ContentCategoryController
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public String list(Model model)
     {
-        final List<TbContentCategory> tbContentCategories = tbContentCategoryService.selectAll();
-        model.addAttribute("tbContentCategories", tbContentCategories);
+        List<TbContentCategory> targetList = new ArrayList<>();
+        final List<TbContentCategory> sourceList = tbContentCategoryService.selectAll();
+
+        Set<TbContentCategory> added = new HashSet<>();
+        sortList(sourceList, targetList, 0L, added);
+
+        model.addAttribute("tbContentCategories", targetList);
+
         return "content_category_list";
+    }
+
+    /**
+     * 排序
+     *
+     * @param sourceList 数据源集合
+     * @param targetList 排序后的集合
+     * @param parentId   父结点的id
+     */
+    private void sortList(List<TbContentCategory> sourceList, List<TbContentCategory> targetList,
+        Long parentId, Set<TbContentCategory> added)
+    {
+        for (TbContentCategory tbContentCategory : sourceList)
+        {
+            if (!added.contains(tbContentCategory) && tbContentCategory.getParentId()
+                .equals(parentId))
+            {
+                targetList.add(tbContentCategory);
+                added.add(tbContentCategory);
+
+                if (tbContentCategory.getParent())
+                {
+                    // 如果有子结点则递归继续追加
+                    sortList(sourceList, targetList, tbContentCategory.getId(), added);
+                }
+            }
+        }
     }
 }

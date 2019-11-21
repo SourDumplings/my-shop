@@ -15,6 +15,8 @@
 <head>
     <title>我的商城 | 内容管理</title>
     <jsp:include page="../includes/header.jsp"/>
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/static/assets/plugins/treeTable/themes/vsStyle/treeTable.min.css"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -61,10 +63,6 @@
                                 <a href="#" type="button"
                                    class="btn btn-primary btn-sm"><i
                                         class="fa fa-plus"></i> 新增</a>&nbsp;&nbsp;&nbsp;
-                                <button type="button"
-                                        class="btn btn-danger btn-sm"><i
-                                        class="fa fa-trash"></i> 删除
-                                </button>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <%--<a href="#" type="button"
                                    class="btn btn-default btn-sm"><i
                                         class="fa fa-level-down"></i> 导入</a>&nbsp;&nbsp;&nbsp;
@@ -76,22 +74,35 @@
 
                         <!-- /.box-header -->
                         <div class="box-body table-responsive">
-                            <table class="table table-hover" id="dataTable">
+                            <table class="table table-hover" id="treeTable">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>名称</th>
                                     <th>排序</th>
+                                    <th>操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${tbContentCategories}" var="tbContentCategory">
-                                        <tr>
-                                            <td>${tbContentCategory.id}</td>
-                                            <td>${tbContentCategory.name}</td>
-                                            <td>${tbContentCategory.sortOrder}</td>
-                                        </tr>
-                                    </c:forEach>
+                                <c:forEach items="${tbContentCategories}" var="tbContentCategory">
+                                    <tr id="${tbContentCategory.id}" pId="${tbContentCategory.parentId}">
+                                        <td>${tbContentCategory.id}</td>
+                                        <td>${tbContentCategory.name}</td>
+                                        <td>${tbContentCategory.sortOrder}</td>
+                                        <td>
+                                            <a href="#" type="button"
+                                               class="btn btn-primary btn-sm"><i
+                                                    class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;
+                                            <button type="button"
+                                                    class="btn btn-danger btn-sm"><i
+                                                    class="fa fa-trash-o"></i> 删除
+                                            </button>&nbsp;&nbsp;&nbsp;
+                                            <a href="#" type="button"
+                                               class="btn btn-default btn-sm"><i
+                                                    class="fa fa-plus"></i> 新增下级菜单</a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -111,8 +122,20 @@
 
 <jsp:include page="../includes/footer.jsp"/>
 
+<script src="${pageContext.request.contextPath}/static/assets/plugins/treeTable/jquery.treeTable.min.js"></script>
+
 <%-- 自定义模态框 --%>
 <sys:modal/>
+
+<script>
+  $(function ()
+  {
+    $('#treeTable').treeTable({
+      column: 1,
+      expandLevel: 2
+    });
+  })
+</script>
 
 </body>
 </html>

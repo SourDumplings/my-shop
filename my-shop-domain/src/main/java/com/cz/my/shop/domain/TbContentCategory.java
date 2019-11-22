@@ -1,6 +1,7 @@
 package com.cz.my.shop.domain;
 
 import com.cz.my.shop.commons.persistence.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author CHANG Zheng
@@ -14,6 +15,7 @@ public class TbContentCategory extends BaseEntity
     private String name;
     private Integer status;
     private Integer sortOrder;
+    @JsonProperty(value = "isParent")
     private Boolean isParent;
 
     public Long getParentId()

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 内容分类管理
@@ -42,7 +43,25 @@ public class ContentCategoryController
     }
 
     /**
-     * 排序
+     * 树形结构.
+     *
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "tree/data", method = RequestMethod.POST)
+    public List<TbContentCategory> treeData(String id)
+    {
+        if (id == null)
+        {
+            id = "0";
+        }
+        return tbContentCategoryService
+            .selectByPid(Long.parseLong(id));
+    }
+
+    /**
+     * 排序.
      *
      * @param sourceList 数据源集合
      * @param targetList 排序后的集合

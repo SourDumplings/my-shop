@@ -66,7 +66,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/content/list">
                             <i class="fa fa-circle-o"></i>
                             内容列表
                         </a>

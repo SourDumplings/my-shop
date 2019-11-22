@@ -15,7 +15,7 @@
   <select id="selectAll" resultType="TbUser">
     SELECT
     <include refid="tbUserColumns"/>
-    FROM tb_user AS u;
+    FROM tb_user AS u
   </select>
 
   <insert id="insert">
@@ -37,7 +37,7 @@
             #{email},
             #{created},
             #{updated}
-        );
+        )
   </insert>
 
   <delete id="delete">
@@ -52,7 +52,7 @@
     <include refid="tbUserColumns"/>
     FROM tb_user AS u
     WHERE
-    u.id = #{id};
+    u.id = #{id}
   </select>
 
   <select id="getByEmail" resultType="TbUser">
@@ -60,7 +60,7 @@
     <include refid="tbUserColumns"/>
     FROM tb_user AS u
     WHERE
-    u.email = #{email};
+    u.email = #{email}
   </select>
 
   <update id="update">
@@ -73,7 +73,7 @@
       email = #{email},
       updated = #{updated}
     WHERE
-      id = #{id};
+      id = #{id}
   </update>
 
   <delete id="deleteMulti">

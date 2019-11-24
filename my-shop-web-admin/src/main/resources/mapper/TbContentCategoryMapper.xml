@@ -13,6 +13,10 @@
     c.updated
   </sql>
 
+  <sql id="tbContentCategoryJoins">
+        LEFT JOIN tb_content_category AS b ON c.parent_id = b.id
+  </sql>
+
   <select id="selectAll" resultType="TbContentCategory">
     SELECT
     <include refid="tbContentCategoryColumns"/>
@@ -24,11 +28,65 @@
     is_parent DESC
   </select>
 
-    <select id="selectByPid" resultType="TbContentCategory">
+  <select id="selectByPid" resultType="TbContentCategory">
     SELECT
     <include refid="tbContentCategoryColumns"/>
     FROM
     tb_content_category AS c
     WHERE c.parent_id = #{parentId}
   </select>
+
+  <select id="getById" resultType="TbContentCategory">
+    SELECT
+    <include refid="tbContentCategoryColumns"/>
+    FROM
+    tb_content_category AS c
+    <include refid="tbContentCategoryJoins"/>
+    WHERE c.id = #{id}
+  </select>
+
+  <insert id="insert">
+        INSERT INTO tb_content_category (
+          `parent_id`,
+          `name`,
+          `status`,
+          `sort_order`,
+          `is_parent`,
+          `created`,
+          `updated`
+        )
+        VALUES
+          (
+            #{parent.id},
+            #{name},
+            #{status},
+            #{sortOrder},
+            #{isParent},
+            #{created},
+            #{updated}
+          );
+    </insert>
+
+  <delete id="delete">
+    DELETE FROM tb_content_category
+    WHERE id IN
+    <foreach collection="array" open="(" close=")" separator="," item="id">
+      #{id}
+    </foreach>
+  </delete>
+
+  <update id="update">
+        UPDATE
+          tb_content_category
+        SET
+          `id` = #{id},
+          `parent_id` = #{parent.id},
+          `name` = #{name},
+          `status` = #{status},
+          `sort_order` = #{sortOrder},
+          `is_parent` = #{isParent},
+          `created` = #{created},
+          `updated` = #{updated}
+        WHERE `id` = #{id}
+    </update>
 </mapper>

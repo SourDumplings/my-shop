@@ -60,7 +60,7 @@
 
                         <div class="box-body">
                             <div class="col-xs-12">
-                                <a href="#" type="button"
+                                <a href="/content/category/form" type="button"
                                    class="btn btn-primary btn-sm"><i
                                         class="fa fa-plus"></i> 新增</a>&nbsp;&nbsp;&nbsp;
                                 <%--<a href="#" type="button"
@@ -85,12 +85,14 @@
                                 </thead>
                                 <tbody>
                                 <c:forEach items="${tbContentCategories}" var="tbContentCategory">
-                                    <tr id="${tbContentCategory.id}" pId="${tbContentCategory.parentId}">
+                                    <tr id="${tbContentCategory.id}"
+                                        pId="${tbContentCategory.parentId}">
                                         <td>${tbContentCategory.id}</td>
                                         <td>${tbContentCategory.name}</td>
                                         <td>${tbContentCategory.sortOrder}</td>
                                         <td>
-                                            <a href="#" type="button"
+                                            <a href="/content/category/form?id=${tbContentCategory.id}"
+                                               type="button"
                                                class="btn btn-primary btn-sm"><i
                                                     class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;
                                             <button type="button"

@@ -1,5 +1,6 @@
 package com.cz.my.shop.web.admin.web.controller;
 
+import com.cz.my.shop.commons.dto.BaseResult;
 import com.cz.my.shop.domain.TbContentCategory;
 import com.cz.my.shop.web.admin.service.TbContentCategoryService;
 import java.util.ArrayList;
@@ -9,9 +10,11 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * 内容分类管理
@@ -27,6 +30,21 @@ public class ContentCategoryController
 {
     @Autowired
     private TbContentCategoryService tbContentCategoryService;
+
+    @ModelAttribute
+    public TbContentCategory getTbContentCategory(Long id)
+    {
+        TbContentCategory tbContentCategory = null;
+        if (id == null)
+        {
+            tbContentCategory = new TbContentCategory();
+        }
+        else
+        {
+            tbContentCategory = tbContentCategoryService.getById(id);
+        }
+        return tbContentCategory;
+    }
 
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public String list(Model model)
@@ -78,12 +96,50 @@ public class ContentCategoryController
                 targetList.add(tbContentCategory);
                 added.add(tbContentCategory);
 
-                if (tbContentCategory.getParent())
+                if (tbContentCategory.getIsParent())
                 {
                     // 如果有子结点则递归继续追加
                     sortList(sourceList, targetList, tbContentCategory.getId(), added);
                 }
             }
+        }
+    }
+
+    /**
+     * 跳转到内容分类表单页
+     *
+     * @return
+     */
+    @RequestMapping(value = "form", method = RequestMethod.GET)
+    public String form()
+    {
+        return "content_category_form";
+    }
+
+    /**
+     * 保存内容分类信息
+     *
+     * @param tbContentCategory
+     * @param redirectAttributes
+     * @return
+     */
+    @RequestMapping(value = "save", method = RequestMethod.POST)
+    public String save(TbContentCategory tbContentCategory, Model model,
+        RedirectAttributes redirectAttributes)
+    {
+        final BaseResult baseResult = tbContentCategoryService.save(tbContentCategory);
+
+        if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS)
+        {
+            // 保存成功
+            redirectAttributes.addFlashAttribute("baseResult", baseResult);
+            return "redirect:/content/category/list";
+        }
+        else
+        {
+            // 保存失败
+            model.addAttribute("baseResult", baseResult);
+            return "content_category_form";
         }
     }
 }

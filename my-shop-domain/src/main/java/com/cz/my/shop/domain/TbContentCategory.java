@@ -1,7 +1,6 @@
 package com.cz.my.shop.domain;
 
 import com.cz.my.shop.commons.persistence.BaseEntity;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,4 +19,5 @@ public class TbContentCategory extends BaseEntity
     private Integer status;
     private Integer sortOrder;
     private Boolean isParent;
+    private TbContentCategory parent;
 }

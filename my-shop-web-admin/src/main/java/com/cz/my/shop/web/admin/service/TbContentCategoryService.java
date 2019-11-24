@@ -1,5 +1,6 @@
 package com.cz.my.shop.web.admin.service;
 
+import com.cz.my.shop.commons.dto.BaseResult;
 import com.cz.my.shop.domain.TbContentCategory;
 import java.util.List;
 
@@ -20,4 +21,8 @@ public interface TbContentCategoryService
      * @return
      */
     List<TbContentCategory> selectByPid(Long pid);
+
+    BaseResult save(TbContentCategory tbContentCategory);
+
+    TbContentCategory getById(Long id);
 }

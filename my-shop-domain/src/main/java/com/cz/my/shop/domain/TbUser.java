@@ -3,6 +3,8 @@ package com.cz.my.shop.domain;
 import com.cz.my.shop.commons.persistence.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author CHANG Zheng
@@ -10,51 +12,14 @@ import java.io.Serializable;
  * @projectName my-shop
  * @date 2019/11/9 8:26
  */
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class TbUser extends BaseEntity implements Serializable
 {
     private String username;
+    @JsonIgnore
     private String password;
     private String phone;
     private String email;
-
-    public String getUsername()
-    {
-        return username;
-    }
-
-    public void setUsername(String username)
-    {
-        this.username = username;
-    }
-
-    @JsonIgnore
-    public String getPassword()
-    {
-        return password;
-    }
-
-    public void setPassword(String password)
-    {
-        this.password = password;
-    }
-
-    public String getPhone()
-    {
-        return phone;
-    }
-
-    public void setPhone(String phone)
-    {
-        this.phone = phone;
-    }
-
-    public String getEmail()
-    {
-        return email;
-    }
-
-    public void setEmail(String email)
-    {
-        this.email = email;
-    }
+    private String content;
 }

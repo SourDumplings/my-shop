@@ -37,6 +37,7 @@
     <junit.version>4.12</junit.version>
     <jackson.version>2.9.5</jackson.version>
     <lombok.version>1.16.18</lombok.version>
+    <hibernate-validatior.version>5.3.4.Final</hibernate-validatior.version>
   </properties>
 
   <dependencyManagement>
@@ -170,6 +171,14 @@
         <version>${lombok.version}</version>
       </dependency>
       <!-- Lombok End -->
+
+      <!-- Spring Validation Begin -->
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>${hibernate-validatior.version}</version>
+      </dependency>
+      <!-- Spring Validation End -->
     </dependencies>
   </dependencyManagement>
 

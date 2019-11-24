@@ -2,7 +2,7 @@ package com.cz.my.shop.web.admin.service.impl;
 
 import com.cz.my.shop.commons.dto.BaseResult;
 import com.cz.my.shop.commons.dto.PageInfo;
-import com.cz.my.shop.commons.utils.RegexpUtils;
+import com.cz.my.shop.commons.validator.BeanValidator;
 import com.cz.my.shop.domain.TbUser;
 import com.cz.my.shop.web.admin.dao.TbUserDao;
 import com.cz.my.shop.web.admin.service.TbUserService;
@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -76,9 +75,16 @@ public class TbUserServiceImpl implements TbUserService
     @Override
     public BaseResult save(TbUser tbUser)
     {
-        BaseResult baseResult = checkTbUser(tbUser);
-        if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS)
+        String validator = BeanValidator.validator(tbUser);
+
+        if (validator != null)
         {
+            // 验证不通过
+            return BaseResult.fail(validator);
+        }
+        else
+        {
+            // 验证通过
             Date date = new Date();
             tbUser.setUpdated(date);
 
@@ -96,49 +102,8 @@ public class TbUserServiceImpl implements TbUserService
                 // 更新用户
                 tbUserDao.update(tbUser);
             }
-
-            baseResult.setMessage("保存用户信息成功");
+            return BaseResult.success("保存用户信息成功");
         }
-        return baseResult;
-    }
-
-    /**
-     * 用户有效性验证
-     *
-     * @param tbUser
-     * @return
-     */
-    private BaseResult checkTbUser(TbUser tbUser)
-    {
-        BaseResult baseResult = BaseResult.success();
-
-        // 非空验证
-        if (StringUtils.isBlank(tbUser.getEmail()))
-        {
-            baseResult = BaseResult.fail("邮箱不能为空，请重新输入");
-        }
-        else if (!RegexpUtils.checkEmail(tbUser.getEmail()))
-        {
-            baseResult = BaseResult.fail("邮箱格式不对，请重新输入");
-        }
-        else if (StringUtils.isBlank(tbUser.getPassword()))
-        {
-            baseResult = BaseResult.fail("密码不能为空，请重新输入");
-        }
-        else if (StringUtils.isBlank(tbUser.getUsername()))
-        {
-            baseResult = BaseResult.fail("姓名不能为空，请重新输入");
-        }
-        else if (StringUtils.isBlank(tbUser.getPhone()))
-        {
-            baseResult = BaseResult.fail("手机号不能为空，请重新输入");
-        }
-        else if (!RegexpUtils.checkPhone(tbUser.getPhone()))
-        {
-            baseResult = BaseResult.fail("手机号格式不对，请重新输入");
-        }
-
-        return baseResult;
     }
 
     @Override

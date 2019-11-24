@@ -18,6 +18,13 @@
   <description></description>
 
   <dependencies>
+    <!-- Spring Begin -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+    <!-- Spring End -->
+
     <!-- Log Begin -->
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -81,5 +88,12 @@
       <artifactId>lombok</artifactId>
     </dependency>
     <!-- Lombok End -->
+
+    <!-- Spring Validation Begin -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+    </dependency>
+    <!-- Spring Validation End -->
   </dependencies>
 </project>

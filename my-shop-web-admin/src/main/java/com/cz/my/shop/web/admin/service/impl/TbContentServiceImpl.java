@@ -2,6 +2,7 @@ package com.cz.my.shop.web.admin.service.impl;
 
 import com.cz.my.shop.commons.dto.BaseResult;
 import com.cz.my.shop.commons.dto.PageInfo;
+import com.cz.my.shop.commons.validator.BeanValidator;
 import com.cz.my.shop.domain.TbContent;
 import com.cz.my.shop.web.admin.dao.TbContentDao;
 import com.cz.my.shop.web.admin.service.TbContentService;
@@ -9,7 +10,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -84,60 +84,34 @@ public class TbContentServiceImpl implements TbContentService
     @Override
     public BaseResult save(TbContent tbContent)
     {
-        BaseResult baseResult = checkTbContent(tbContent);
-        if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS)
+        String validator = BeanValidator.validator(tbContent);
+
+        if (validator != null)
         {
-            Date date = new Date();
-            tbContent.setUpdated(date);
+            // 验证不通过
+
+            return BaseResult.fail(validator);
+        }
+        else
+        {
+            // 验证通过
+
+            tbContent.setUpdated(new Date());
 
             if (tbContent.getId() == null)
             {
-                // 新增内容
-                tbContent.setCreated(date);
+                // 新增
+                // 密码需要加密处理
+                tbContent.setCreated(new Date());
                 tbContentDao.insert(tbContent);
             }
             else
             {
-                // 更新内容
-                tbContentDao.update(tbContent);
+                // 编辑用户
+                update(tbContent);
             }
 
-            baseResult.setMessage("保存内容信息成功");
+            return BaseResult.success("保存内容信息成功");
         }
-        return baseResult;
-    }
-
-    /**
-     * 内容有效性验证
-     *
-     * @param tbContent
-     * @return
-     */
-    private BaseResult checkTbContent(TbContent tbContent)
-    {
-        BaseResult baseResult = BaseResult.success();
-
-        // 非空验证
-        if (tbContent.getCategoryId() == null)
-        {
-            baseResult = BaseResult.fail("分类 id 不能为空，请重新输入");
-        }
-        else if (StringUtils.isBlank(tbContent.getTitle()))
-        {
-            baseResult = BaseResult.fail("标题不能为空，请重新输入");
-        }
-        else if (StringUtils.isBlank(tbContent.getSubTitle()))
-        {
-            baseResult = BaseResult.fail("子标题不能为空，请重新输入");
-        }
-        else if (StringUtils.isBlank(tbContent.getTitleDesc()))
-        {
-            baseResult = BaseResult.fail("标题描述不能为空，请重新输入");
-        }
-        else if (!StringUtils.isBlank(tbContent.getContent()))
-        {
-            baseResult = BaseResult.fail("内容不能为空，请重新输入");
-        }
-        return baseResult;
     }
 }

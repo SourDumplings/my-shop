@@ -34,7 +34,7 @@ public class TbContent extends BaseEntity
     private String pic;
     private String pic2;
 
-    // @Length(min = 1, message = "内容不能为空")
+    @Length(min = 1, message = "内容不能为空")
     private String content;
 
 /*    @NotNull(message = "父级类目不能为空")

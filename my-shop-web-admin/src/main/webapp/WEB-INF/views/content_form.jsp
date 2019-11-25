@@ -20,7 +20,7 @@
           href="/static/assets/plugins/jquery-ztree/css/zTreeStyle/zTreeStyle.min.css"/>
     <link rel="stylesheet" href="/static/assets/plugins/dropzone/dropzone.css"/>
     <link rel="stylesheet" href="/static/assets/plugins/dropzone/min/basic.min.css"/>
-<%--    <link rel="stylesheet" href="/static/assets/plugins/wangEditor/wangEditor.min.css"/>--%>
+    <link rel="stylesheet" href="/static/assets/plugins/wangEditor/wangEditor.min.css"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -166,7 +166,7 @@
 <jsp:include page="../includes/footer.jsp"/>
 <script src="/static/assets/plugins/jquery-ztree/js/jquery.ztree.core-3.5.min.js"></script>
 <script src="/static/assets/plugins/dropzone/min/dropzone.min.js"></script>
-<%--<script src="/static/assets/plugins/wangEditor/wangEditor.min.js"></script>--%>
+<script src="/static/assets/plugins/wangEditor/wangEditor.min.js"></script>
 
 <!-- 自定义模态框 -->
 <sys:modal title="请选择" message="<ul id='myTree' class='ztree'></ul>"/>
@@ -181,14 +181,15 @@
       $("#categoryName").val(node.name);
       $("#modal-default").modal("hide");
     });
-    // initWangEditor();
+    initWangEditor();
   });
 
   /**
    * 初始化富文本编辑器
    */
-  /*function initWangEditor()
+  function initWangEditor()
   {
+    alert("initWangEditor()");
     var E = window.wangEditor;
     var editor = new E('#editor');
     // 配置服务器端地址
@@ -200,7 +201,7 @@
       var contentHtml = editor.txt.html();
       $("#content").val(contentHtml);
     });
-  }*/
+  }
 
   App.initDropzone({
     id: "#dropz",

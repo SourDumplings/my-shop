@@ -38,6 +38,7 @@
     <jackson.version>2.9.5</jackson.version>
     <lombok.version>1.16.18</lombok.version>
     <hibernate-validatior.version>5.3.4.Final</hibernate-validatior.version>
+    <commons-fileupload.version>1.3.2</commons-fileupload.version>
   </properties>
 
   <dependencyManagement>
@@ -115,6 +116,11 @@
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-lang3</artifactId>
         <version>${commons-lang3.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-fileupload</groupId>
+        <artifactId>commons-fileupload</artifactId>
+        <version>${commons-fileupload.version}</version>
       </dependency>
       <!-- Commons End -->
 

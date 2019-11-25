@@ -4,6 +4,7 @@ import com.cz.my.shop.commons.dto.BaseResult;
 import com.cz.my.shop.commons.dto.PageInfo;
 import com.cz.my.shop.domain.TbContent;
 import com.cz.my.shop.web.admin.service.TbContentService;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -144,7 +145,7 @@ public class ContentController
     }
 
     /**
-     * 显示内容详情
+     * 显示内容详情.
      *
      * @param tbContent
      * @return

@@ -65,15 +65,15 @@
                             <form:hidden path="id"/>
                             <div class="box-body">
                                 <div class="form-group">
-                                    <label for="categoryId"
-                                           class="col-sm-2 control-label">父级类目</label>
+                                    <label class="col-sm-2 control-label">父级类目</label>
 
                                     <div class="col-sm-10">
-                                        <form:hidden path="categoryId"/>
+                                        <form:hidden id="categoryId" path="tbContentCategory.id"/>
                                         <input id="categoryName"
                                                class="form-control required categoryId"
                                                placeholder="请选择" readonly="true"
                                                data-toggle="modal"
+                                               value="${tbContent.tbContentCategory.name}"
                                                data-target="#modal-default"/>
                                     </div>
                                 </div>
@@ -189,7 +189,6 @@
    */
   function initWangEditor()
   {
-    alert("initWangEditor()");
     var E = window.wangEditor;
     var editor = new E('#editor');
     // 配置服务器端地址

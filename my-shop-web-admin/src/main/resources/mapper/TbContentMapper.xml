@@ -3,23 +3,31 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cz.my.shop.web.admin.dao.TbContentDao">
   <sql id="tbContentColumns">
-    c.id,
-    c.category_id,
-    c.title,
-    c.sub_title,
-    c.title_desc,
-    c.url,
-    c.pic,
-    c.pic2,
-    c.content,
-    c.created,
-    c.updated
+      c.id,
+      c.category_id AS categoryId,
+      c.title,
+      c.sub_title AS subTitle,
+      c.title_desc AS titleDesc,
+      c.url,
+      c.pic,
+      c.pic2,
+      c.content,
+      c.created,
+      c.updated,
+      b.id AS "tbContentCategory.id",
+      b.name AS "tbContentCategory.name"
+  </sql>
+
+  <sql id="tbContentJoins">
+    LEFT JOIN tb_content_category AS b ON c.category_id = b.id
   </sql>
 
   <select id="selectAll" resultType="TbContent">
     SELECT
     <include refid="tbContentColumns"/>
-    FROM tb_content AS c;
+    FROM
+    tb_content AS c
+    <include refid="tbContentJoins"/>
   </select>
 
   <insert id="insert">
@@ -39,7 +47,7 @@
         )
     VALUES
         (
-          #{categoryId},
+          #{tbContentCategory.id},
           #{title},
           #{subTitle},
           #{titleDesc},
@@ -62,7 +70,9 @@
   <select id="getById" resultType="TbContent">
     SELECT
     <include refid="tbContentColumns"/>
-    FROM tb_content AS c
+    FROM
+    tb_content AS c
+    <include refid="tbContentJoins"/>
     WHERE
     c.id = #{id}
   </select>
@@ -71,7 +81,7 @@
     UPDATE
       tb_content
     SET
-      `category_id` = #{categoryId},
+      `category_id` = #{tbContentCategory.id},
       `title` = #{title},
       `sub_title` = #{subTitle},
       `title_desc` = #{titleDesc},
@@ -98,6 +108,7 @@
     <include refid="tbContentColumns"/>
     FROM
     tb_content AS c
+    <include refid="tbContentJoins"/>
     <where>
       <if test="tbContent.title != null and tbContent.title != ''">
         AND c.title LIKE CONCAT ('%', #{tbContent.title}, '%')

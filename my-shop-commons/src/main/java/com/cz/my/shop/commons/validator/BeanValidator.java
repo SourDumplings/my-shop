@@ -8,7 +8,6 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * JSR303 Validator(Hibernate Validator)工具类.

@@ -1,6 +1,7 @@
 package com.cz.my.shop.web.admin.service.impl;
 
 import com.cz.my.shop.commons.dto.BaseResult;
+import com.cz.my.shop.commons.dto.PageInfo;
 import com.cz.my.shop.commons.validator.BeanValidator;
 import com.cz.my.shop.domain.TbContentCategory;
 import com.cz.my.shop.web.admin.dao.TbContentCategoryDao;
@@ -21,6 +22,43 @@ public class TbContentCategoryServiceImpl implements TbContentCategoryService
 {
     @Autowired
     private TbContentCategoryDao tbContentCategoryDao;
+
+    @Override
+    public void insert(TbContentCategory element)
+    {
+
+    }
+
+    @Override
+    public void delete(long id)
+    {
+
+    }
+
+    @Override
+    public void update(TbContentCategory element)
+    {
+
+    }
+
+    @Override
+    public void deleteMulti(String[] ids)
+    {
+
+    }
+
+    @Override
+    public PageInfo<TbContentCategory> page(int start, int length, int draw,
+        TbContentCategory element)
+    {
+        return null;
+    }
+
+    @Override
+    public int count(TbContentCategory element)
+    {
+        return 0;
+    }
 
     @Override
     public List<TbContentCategory> selectAll()
@@ -90,7 +128,7 @@ public class TbContentCategoryServiceImpl implements TbContentCategoryService
     }
 
     @Override
-    public TbContentCategory getById(Long id)
+    public TbContentCategory getById(long id)
     {
         return tbContentCategoryDao.getById(id);
     }

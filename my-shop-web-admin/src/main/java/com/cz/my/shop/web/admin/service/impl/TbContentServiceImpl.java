@@ -34,6 +34,12 @@ public class TbContentServiceImpl implements TbContentService
     }
 
     @Override
+    public void insert(TbContent element)
+    {
+
+    }
+
+    @Override
     public void delete(long id)
     {
         tbContentDao.delete(id);

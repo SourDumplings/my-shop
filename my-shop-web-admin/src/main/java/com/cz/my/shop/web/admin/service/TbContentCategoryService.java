@@ -1,6 +1,6 @@
 package com.cz.my.shop.web.admin.service;
 
-import com.cz.my.shop.commons.dto.BaseResult;
+import com.cz.my.shop.commons.persistence.BaseService;
 import com.cz.my.shop.domain.TbContentCategory;
 import java.util.List;
 
@@ -10,10 +10,8 @@ import java.util.List;
  * @projectName my-shop
  * @date 2019/11/20 8:28
  */
-public interface TbContentCategoryService
+public interface TbContentCategoryService extends BaseService<TbContentCategory>
 {
-    List<TbContentCategory> selectAll();
-
     /**
      * 根据父级节点查询所有子节点.
      *
@@ -21,8 +19,4 @@ public interface TbContentCategoryService
      * @return
      */
     List<TbContentCategory> selectByPid(Long pid);
-
-    BaseResult save(TbContentCategory tbContentCategory);
-
-    TbContentCategory getById(Long id);
 }

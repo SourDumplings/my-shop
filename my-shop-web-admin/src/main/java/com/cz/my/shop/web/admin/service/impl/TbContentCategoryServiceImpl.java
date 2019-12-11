@@ -26,7 +26,7 @@ public class TbContentCategoryServiceImpl implements TbContentCategoryService
     @Override
     public void insert(TbContentCategory element)
     {
-
+        tbContentCategoryDao.insert(element);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class TbContentCategoryServiceImpl implements TbContentCategoryService
     @Override
     public void update(TbContentCategory element)
     {
-
+        tbContentCategoryDao.update(element);
     }
 
     @Override
@@ -87,25 +87,26 @@ public class TbContentCategoryServiceImpl implements TbContentCategoryService
             {
                 // 如果没有选择父级节点则默认设置为根目录
                 // 0 代表根目录
-                tbContentCategory.setParentId(0L);
+                parent.setId(0L);
             }
             tbContentCategory.setUpdated(new Date());
 
+            final Date date = new Date();
             if (tbContentCategory.getId() == null)
             {
                 // 新增
-                tbContentCategory.setCreated(new Date());
+                tbContentCategory.setCreated(date);
                 tbContentCategory.setIsParent(false);
 
                 // 判断当前新增的节点有没有父级节点
-                if (tbContentCategory.getParentId() != 0L)
+                if (parent.getId() != 0L)
                 {
                     TbContentCategory currentCategoryParent = getById(parent.getId());
                     if (currentCategoryParent != null)
                     {
                         // 为父级节点设置 isParent 为 true
                         currentCategoryParent.setIsParent(true);
-                        tbContentCategoryDao.update(currentCategoryParent);
+                        update(currentCategoryParent);
                     }
                 }
                 else
@@ -113,15 +114,19 @@ public class TbContentCategoryServiceImpl implements TbContentCategoryService
                     // 父级节点为 0 ，表示为根目录
                     // 根目录一定是父级目录
                     tbContentCategory.setIsParent(true);
+                    tbContentCategory.setParentId(0L);
                 }
 
-                tbContentCategoryDao.insert(tbContentCategory);
-            }
+                tbContentCategory.setUpdated(date);
 
+                insert(tbContentCategory);
+            }
             else
             {
                 // 修改
-                tbContentCategoryDao.update(tbContentCategory);
+                tbContentCategory.setUpdated(date);
+
+                update(tbContentCategory);
             }
             return BaseResult.success("保存分类信息成功");
         }

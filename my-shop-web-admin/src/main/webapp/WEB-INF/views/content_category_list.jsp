@@ -99,7 +99,8 @@
                                                     class="btn btn-danger btn-sm"><i
                                                     class="fa fa-trash-o"></i> 删除
                                             </button>&nbsp;&nbsp;&nbsp;
-                                            <a href="#" type="button"
+                                            <a href="/content/category/form?parent.id=${tbContentCategory.id}&parent.name=${tbContentCategory.name}"
+                                               type="button"
                                                class="btn btn-default btn-sm"><i
                                                     class="fa fa-plus"></i> 新增下级菜单</a>
                                         </td>

@@ -1,8 +1,7 @@
 package com.cz.my.shop.web.admin.service;
 
-import com.cz.my.shop.commons.persistence.BaseService;
+import com.cz.my.shop.commons.persistence.BaseTreeService;
 import com.cz.my.shop.domain.TbContentCategory;
-import java.util.List;
 
 /**
  * @author CHANG Zheng
@@ -10,13 +9,7 @@ import java.util.List;
  * @projectName my-shop
  * @date 2019/11/20 8:28
  */
-public interface TbContentCategoryService extends BaseService<TbContentCategory>
+public interface TbContentCategoryService extends BaseTreeService<TbContentCategory>
 {
-    /**
-     * 根据父级节点查询所有子节点.
-     *
-     * @param pid
-     * @return
-     */
-    List<TbContentCategory> selectByPid(Long pid);
+
 }

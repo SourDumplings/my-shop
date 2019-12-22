@@ -1,14 +1,12 @@
 package com.cz.my.shop.web.admin.service.impl;
 
 import com.cz.my.shop.commons.dto.BaseResult;
-import com.cz.my.shop.commons.dto.PageInfo;
 import com.cz.my.shop.commons.validator.BeanValidator;
 import com.cz.my.shop.domain.TbContentCategory;
+import com.cz.my.shop.web.admin.abstracts.AbstractBaseTreeServiceImpl;
 import com.cz.my.shop.web.admin.dao.TbContentCategoryDao;
 import com.cz.my.shop.web.admin.service.TbContentCategoryService;
 import java.util.Date;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,60 +16,10 @@ import org.springframework.stereotype.Service;
  * @date 2019/11/20 8:28
  */
 @Service
-public class TbContentCategoryServiceImpl implements TbContentCategoryService
+public class TbContentCategoryServiceImpl extends
+    AbstractBaseTreeServiceImpl<TbContentCategory, TbContentCategoryDao> implements
+    TbContentCategoryService
 {
-    @Autowired
-    private TbContentCategoryDao tbContentCategoryDao;
-
-    @Override
-    public void insert(TbContentCategory element)
-    {
-        tbContentCategoryDao.insert(element);
-    }
-
-    @Override
-    public void delete(long id)
-    {
-
-    }
-
-    @Override
-    public void update(TbContentCategory element)
-    {
-        tbContentCategoryDao.update(element);
-    }
-
-    @Override
-    public void deleteMulti(String[] ids)
-    {
-
-    }
-
-    @Override
-    public PageInfo<TbContentCategory> page(int start, int length, int draw,
-        TbContentCategory element)
-    {
-        return null;
-    }
-
-    @Override
-    public int count(TbContentCategory element)
-    {
-        return 0;
-    }
-
-    @Override
-    public List<TbContentCategory> selectAll()
-    {
-        return tbContentCategoryDao.selectAll();
-    }
-
-    @Override
-    public List<TbContentCategory> selectByPid(Long pid)
-    {
-        return tbContentCategoryDao.selectByPid(pid);
-    }
-
     @Override
     public BaseResult save(TbContentCategory tbContentCategory)
     {
@@ -130,11 +78,5 @@ public class TbContentCategoryServiceImpl implements TbContentCategoryService
             }
             return BaseResult.success("保存分类信息成功");
         }
-    }
-
-    @Override
-    public TbContentCategory getById(long id)
-    {
-        return tbContentCategoryDao.getById(id);
     }
 }

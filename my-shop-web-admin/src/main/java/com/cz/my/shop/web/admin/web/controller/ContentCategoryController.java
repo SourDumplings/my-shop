@@ -2,12 +2,12 @@ package com.cz.my.shop.web.admin.web.controller;
 
 import com.cz.my.shop.commons.dto.BaseResult;
 import com.cz.my.shop.domain.TbContentCategory;
+import com.cz.my.shop.web.admin.abstracts.AbstractBaseTreeContrloller;
 import com.cz.my.shop.web.admin.service.TbContentCategoryService;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,11 +26,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  */
 @Controller
 @RequestMapping(value = "content/category")
-public class ContentCategoryController
+public class ContentCategoryController extends
+    AbstractBaseTreeContrloller<TbContentCategory, TbContentCategoryService>
 {
-    @Autowired
-    private TbContentCategoryService tbContentCategoryService;
-
     @ModelAttribute
     public TbContentCategory getTbContentCategory(Long id)
     {
@@ -41,16 +39,17 @@ public class ContentCategoryController
         }
         else
         {
-            tbContentCategory = tbContentCategoryService.getById(id);
+            tbContentCategory = service.getById(id);
         }
         return tbContentCategory;
     }
 
+    @Override
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public String list(Model model)
     {
         List<TbContentCategory> targetList = new ArrayList<>();
-        final List<TbContentCategory> sourceList = tbContentCategoryService.selectAll();
+        final List<TbContentCategory> sourceList = service.selectAll();
 
         Set<TbContentCategory> added = new HashSet<>();
         sortList(sourceList, targetList, 0L, added);
@@ -66,43 +65,13 @@ public class ContentCategoryController
      * @param id
      * @return
      */
+    @Override
     @ResponseBody
     @RequestMapping(value = "tree/data", method = RequestMethod.POST)
-    public List<TbContentCategory> treeData(String id)
+    public List<TbContentCategory> treeData(Long id)
     {
-        if (id == null)
-        {
-            id = "0";
-        }
-        return tbContentCategoryService
-            .selectByPid(Long.parseLong(id));
-    }
-
-    /**
-     * 排序.
-     *
-     * @param sourceList 数据源集合
-     * @param targetList 排序后的集合
-     * @param parentId   父结点的id
-     */
-    private void sortList(List<TbContentCategory> sourceList, List<TbContentCategory> targetList,
-        Long parentId, Set<TbContentCategory> added)
-    {
-        for (TbContentCategory tbContentCategory : sourceList)
-        {
-            if (!added.contains(tbContentCategory) && tbContentCategory.getParentId()
-                .equals(parentId))
-            {
-                targetList.add(tbContentCategory);
-                added.add(tbContentCategory);
-
-                if (tbContentCategory.getIsParent())
-                {
-                    // 如果有子结点则递归继续追加
-                    sortList(sourceList, targetList, tbContentCategory.getId(), added);
-                }
-            }
-        }
+        return service
+            .selectByPid(id);
     }
 
     /**
@@ -110,6 +79,7 @@ public class ContentCategoryController
      *
      * @return
      */
+    @Override
     @RequestMapping(value = "form", method = RequestMethod.GET)
     public String form(TbContentCategory tbContentCategory)
     {
@@ -123,11 +93,12 @@ public class ContentCategoryController
      * @param redirectAttributes
      * @return
      */
+    @Override
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public String save(TbContentCategory tbContentCategory, Model model,
         RedirectAttributes redirectAttributes)
     {
-        final BaseResult baseResult = tbContentCategoryService.save(tbContentCategory);
+        final BaseResult baseResult = service.save(tbContentCategory);
 
         if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS)
         {
@@ -141,5 +112,11 @@ public class ContentCategoryController
             model.addAttribute("baseResult", baseResult);
             return "content_category_form";
         }
+    }
+
+    @Override
+    public BaseResult delete(String ids)
+    {
+        return null;
     }
 }

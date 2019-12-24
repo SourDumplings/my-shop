@@ -1,6 +1,6 @@
 package com.cz.my.shop.domain;
 
-import com.cz.my.shop.commons.persistence.BaseEntity;
+import com.cz.my.shop.commons.persistence.BaseTreeEntity;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.Length;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class TbContentCategory extends BaseEntity
+public class TbContentCategory extends BaseTreeEntity
 {
     private Long parentId;
 

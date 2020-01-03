@@ -8,6 +8,7 @@ import com.cz.my.shop.web.admin.dao.TbContentCategoryDao;
 import com.cz.my.shop.web.admin.service.TbContentCategoryService;
 import java.util.Date;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author CHANG Zheng
@@ -15,11 +16,13 @@ import org.springframework.stereotype.Service;
  * @projectName my-shop
  * @date 2019/11/20 8:28
  */
+@Transactional(readOnly = true)
 @Service
 public class TbContentCategoryServiceImpl extends
     AbstractBaseTreeServiceImpl<TbContentCategory, TbContentCategoryDao> implements
     TbContentCategoryService
 {
+    @Transactional(readOnly = false)
     @Override
     public BaseResult save(TbContentCategory tbContentCategory)
     {

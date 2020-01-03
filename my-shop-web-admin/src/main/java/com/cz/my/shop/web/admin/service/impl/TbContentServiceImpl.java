@@ -8,6 +8,7 @@ import com.cz.my.shop.web.admin.dao.TbContentDao;
 import com.cz.my.shop.web.admin.service.TbContentService;
 import java.util.Date;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 内容 Service 实现类.
@@ -17,10 +18,12 @@ import org.springframework.stereotype.Service;
  * @projectName my-shop
  * @date 2019/11/22 14:28
  */
+@Transactional(readOnly = true)
 @Service
 public class TbContentServiceImpl extends
     AbstractBaseServiceImpl<TbContent, TbContentDao> implements TbContentService
 {
+    @Transactional(readOnly = false)
     @Override
     public BaseResult save(TbContent tbContent)
     {

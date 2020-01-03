@@ -8,6 +8,7 @@ import com.cz.my.shop.web.admin.dao.TbUserDao;
 import com.cz.my.shop.web.admin.service.TbUserService;
 import java.util.Date;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 /**
@@ -16,6 +17,7 @@ import org.springframework.util.DigestUtils;
  * @projectName my-shop
  * @date 2019/11/9 8:32
  */
+@Transactional(readOnly = true)
 @Service
 public class TbUserServiceImpl extends AbstractBaseServiceImpl<TbUser, TbUserDao> implements
     TbUserService
@@ -36,6 +38,7 @@ public class TbUserServiceImpl extends AbstractBaseServiceImpl<TbUser, TbUserDao
         return null;
     }
 
+    @Transactional(readOnly = false)
     @Override
     public BaseResult save(TbUser tbUser)
     {

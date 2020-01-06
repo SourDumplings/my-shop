@@ -231,13 +231,14 @@
         "data": function (row, type, val, meta)
         {
           var detailUrl = "/content/detail?id=" + row.id;
+          var deleteUrl = "/content/delete";
           return '<button type="button" onclick="App.showDetail(\'' + detailUrl
               + '\')" class="btn btn-default btn-sm"><i class="fa fa-search"></i> 查看</button>&nbsp;&nbsp;&nbsp;'
               +
               ' <a href="/content/form?id=' + row.id
               + '" type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;'
-          /*+
-          '<a href="#" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> 删除</a>';*/
+              + '<button type="button" class="btn btn-sm btn-danger" onclick="App.deleteSingle(\''
+              + deleteUrl + '\', \'' + row.id + '\')"><i class="fa fa-trash-o"></i> 删除</button>';
         }
       }
     ];

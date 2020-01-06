@@ -16,7 +16,7 @@ public abstract class AbstractBaseTreeServiceImpl<T extends BaseEntity, D extend
     BaseTreeService<T>
 {
     @Autowired
-    private D dao;
+    protected D dao;
 
     @Override
     public List<T> selectAll()

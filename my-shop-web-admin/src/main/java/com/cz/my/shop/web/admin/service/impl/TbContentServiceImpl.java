@@ -57,4 +57,11 @@ public class TbContentServiceImpl extends
             return BaseResult.success("保存内容信息成功");
         }
     }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void deleteByCategoryId(String[] categoryIds)
+    {
+        dao.deleteByCategoryId(categoryIds);
+    }
 }

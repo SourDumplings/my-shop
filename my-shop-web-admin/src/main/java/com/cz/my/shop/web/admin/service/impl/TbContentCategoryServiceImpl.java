@@ -6,7 +6,11 @@ import com.cz.my.shop.domain.TbContentCategory;
 import com.cz.my.shop.web.admin.abstracts.AbstractBaseTreeServiceImpl;
 import com.cz.my.shop.web.admin.dao.TbContentCategoryDao;
 import com.cz.my.shop.web.admin.service.TbContentCategoryService;
+import com.cz.my.shop.web.admin.service.TbContentService;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +26,9 @@ public class TbContentCategoryServiceImpl extends
     AbstractBaseTreeServiceImpl<TbContentCategory, TbContentCategoryDao> implements
     TbContentCategoryService
 {
+    @Autowired
+    private TbContentService tbContentService;
+
     @Transactional(readOnly = false)
     @Override
     public BaseResult save(TbContentCategory tbContentCategory)
@@ -81,5 +88,53 @@ public class TbContentCategoryServiceImpl extends
             }
             return BaseResult.success("保存分类信息成功");
         }
+    }
+
+    /**
+     * 删除分类
+     *
+     * @param id
+     */
+    @Override
+    @Transactional(readOnly = false)
+    public void delete(Long id)
+    {
+        List<String> targetArray = new ArrayList<>();
+        findAllChild(targetArray, id);
+
+        String[] categoryIds = targetArray.toArray(new String[targetArray.size()]);
+
+        // 删除类目及其子类目
+        dao.delete(categoryIds);
+
+        // 删除类目下所有内容
+        tbContentService.deleteByCategoryId(categoryIds);
+    }
+
+    /**
+     * 查找出所有子节点
+     *
+     * @param targetList
+     * @param parentId
+     */
+    private void findAllChild(List<String> targetList, Long parentId)
+    {
+        targetList.add(String.valueOf(parentId));
+
+        List<TbContentCategory> tbContentCategories = selectByPid(parentId);
+        for (TbContentCategory tbContentCategory : tbContentCategories)
+        {
+            findAllChild(targetList, tbContentCategory.getId());
+        }
+    }
+
+    @Override
+    public List<TbContentCategory> selectByPid(Long pid)
+    {
+        if (pid == null)
+        {
+            pid = 0L;
+        }
+        return dao.selectByPid(pid);
     }
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -70,8 +71,7 @@ public class ContentCategoryController extends
     @RequestMapping(value = "tree/data", method = RequestMethod.POST)
     public List<TbContentCategory> treeData(Long id)
     {
-        return service
-            .selectByPid(id);
+        return service.selectByPid(id);
     }
 
     /**
@@ -114,9 +114,28 @@ public class ContentCategoryController extends
         }
     }
 
+    /**
+     * 删除
+     *
+     * @param ids
+     * @return
+     */
     @Override
+    @ResponseBody
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
     public BaseResult delete(String ids)
     {
-        return null;
+        BaseResult baseResult = null;
+        if (StringUtils.isNotBlank(ids))
+        {
+            service.delete(Long.parseLong(ids));
+            baseResult = BaseResult.success("删除分类及其子类及其全部内容成功");
+        }
+        else
+        {
+            baseResult = BaseResult.fail("删除分类失败");
+        }
+
+        return baseResult;
     }
 }

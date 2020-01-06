@@ -103,6 +103,14 @@
     </foreach>
   </delete>
 
+  <delete id="deleteByCategoryId">
+    DELETE FROM tb_content
+    WHERE category_id IN
+    <foreach collection="array" open="(" close=")" separator="," item="categoryId">
+      #{categoryId}
+    </foreach>
+  </delete>
+
   <select id="page" resultType="TbContent" parameterType="java.util.Map">
     SELECT
     <include refid="tbContentColumns"/>

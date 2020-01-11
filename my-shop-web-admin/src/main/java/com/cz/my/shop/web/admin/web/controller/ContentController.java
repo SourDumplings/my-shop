@@ -1,11 +1,9 @@
 package com.cz.my.shop.web.admin.web.controller;
 
 import com.cz.my.shop.commons.dto.BaseResult;
-import com.cz.my.shop.commons.dto.PageInfo;
 import com.cz.my.shop.domain.TbContent;
+import com.cz.my.shop.web.admin.abstracts.AbstractBaseController;
 import com.cz.my.shop.web.admin.service.TbContentService;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  */
 @RequestMapping("content")
 @Controller
-public class ContentController
+public class ContentController extends AbstractBaseController<TbContent, TbContentService>
 {
     @Autowired
     private TbContentService tbContentService;
@@ -122,26 +120,10 @@ public class ContentController
         return baseResult;
     }
 
-    /**
-     * 分页查询
-     *
-     * @param request
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping(value = "page", method = RequestMethod.GET)
-    public PageInfo<TbContent> page(HttpServletRequest request, TbContent tbContent)
+    @Override
+    public String detail()
     {
-        String strDraw = request.getParameter("draw");
-        String strStart = request.getParameter("start");
-        String strLength = request.getParameter("length");
-
-        int draw = strDraw == null ? 0 : Integer.parseInt(strDraw);
-        int start = strStart == null ? 0 : Integer.parseInt(strStart);
-        int length = strLength == null ? 10 : Integer.parseInt(strLength);
-
-        // 封装 DataTables 需要的结果
-        return tbContentService.page(start, length, draw, tbContent);
+        return null;
     }
 
     /**

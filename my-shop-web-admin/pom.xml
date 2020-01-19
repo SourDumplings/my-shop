@@ -53,13 +53,6 @@
     </dependency>
     <!-- Spring End -->
 
-    <!-- Commons Begin -->
-    <dependency>
-      <groupId>commons-fileupload</groupId>
-      <artifactId>commons-fileupload</artifactId>
-    </dependency>
-    <!-- Commons End -->
-
     <!-- Servlet Begin -->
     <dependency>
       <groupId>javax.servlet</groupId>

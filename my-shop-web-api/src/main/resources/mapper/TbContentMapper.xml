@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cz.my.shop.web.api.dao.TbContentDao">
+  <sql id="tbContentColumns">
+      c.id,
+      c.category_id AS categoryId,
+      c.title,
+      c.sub_title AS subTitle,
+      c.title_desc AS titleDesc,
+      c.url,
+      c.pic,
+      c.pic2,
+      c.content,
+      c.created,
+      c.updated,
+      b.id AS "tbContentCategory.id",
+      b.name AS "tbContentCategory.name"
+  </sql>
+
+  <sql id="tbContentJoins">
+    LEFT JOIN tb_content_category AS b ON c.category_id = b.id
+  </sql>
+
+  <select id="selectByCategoryId" resultType="TbContent">
+    SELECT
+    <include refid="tbContentColumns"/>
+    FROM tb_content AS c
+    <include refid="tbContentJoins"/>
+    WHERE c.category_id = #{tbContentCategory.id}
+  </select>
+
+</mapper>

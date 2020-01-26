@@ -2,7 +2,10 @@ package com.cz.my.shop.web.api.web.controller;
 
 import com.cz.my.shop.domain.TbContent;
 import com.cz.my.shop.web.api.service.TbContentService;
+import com.cz.my.shop.web.api.web.dto.TbContentDTO;
+import java.util.ArrayList;
 import java.util.List;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,8 +39,23 @@ public class TbContentController
     }
 
     @RequestMapping(value = "findContentByCategoryId", method = RequestMethod.GET)
-    public List<TbContent> findContentByCategoryId(Long categoryId)
+    public List<TbContentDTO> findContentByCategoryId(Long categoryId)
     {
-        return tbContentService.selectByCategoryId(categoryId);
+        List<TbContentDTO> tbContentDTOS = null;
+        final List<TbContent> tbContents = tbContentService.selectByCategoryId(categoryId);
+
+        if (tbContents != null && !tbContents.isEmpty())
+        {
+            tbContentDTOS = new ArrayList<>();
+            for (TbContent tbContent : tbContents)
+            {
+                TbContentDTO tbContentDTO = new TbContentDTO();
+                BeanUtils.copyProperties(tbContent, tbContentDTO);
+                tbContentDTOS.add(tbContentDTO);
+            }
+
+        }
+        return tbContentDTOS;
+
     }
 }

@@ -1,5 +1,6 @@
-package com.cz.my.shop.web.api.web.controller;
+package com.cz.my.shop.web.api.web.controller.v1;
 
+import com.cz.my.shop.commons.dto.BaseResult;
 import com.cz.my.shop.domain.TbContent;
 import com.cz.my.shop.web.api.service.TbContentService;
 import com.cz.my.shop.web.api.web.dto.TbContentDTO;
@@ -8,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2020/1/19 10:54
  */
 @RestController
-@RequestMapping(value = "content")
+@RequestMapping(value = "${api.path.v1}/contents")
 public class TbContentController
 {
     @Autowired
@@ -38,9 +40,11 @@ public class TbContentController
         return tbContent;
     }
 
-    @RequestMapping(value = "findContentByCategoryId", method = RequestMethod.GET)
-    public List<TbContentDTO> findContentByCategoryId(Long categoryId)
+    @RequestMapping(value = "{category_id}", method = RequestMethod.GET)
+    public BaseResult findContentByCategoryId(
+        @PathVariable(value = "category_id") Long categoryId)
     {
+        BaseResult res = null;
         List<TbContentDTO> tbContentDTOS = null;
         final List<TbContent> tbContents = tbContentService.selectByCategoryId(categoryId);
 
@@ -54,8 +58,10 @@ public class TbContentController
                 tbContentDTOS.add(tbContentDTO);
             }
 
+            res = BaseResult.success("成功", tbContentDTOS);
+
         }
-        return tbContentDTOS;
+        return res;
 
     }
 }

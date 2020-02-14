@@ -30,7 +30,7 @@ public class TbUserController
      * @param tbUser
      * @return
      */
-    @RequestMapping(value = "login", method = RequestMethod.GET)
+    @RequestMapping(value = "login", method = RequestMethod.POST)
     public BaseResult login(TbUser tbUser)
     {
         TbUser user = tbUserService.login(tbUser);

@@ -41,9 +41,10 @@
 
   <mvc:interceptors>
     <mvc:interceptor>
-      <bean class="com.cz.my.shop.web.ui.interceptor.LoginInterceptor"></bean>
       <mvc:mapping path="/register"/>
       <mvc:mapping path="/login"/>
+      <bean class="com.cz.my.shop.web.ui.interceptor.LoginInterceptor"/>
+
     </mvc:interceptor>
   </mvc:interceptors>
 </beans>

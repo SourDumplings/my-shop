@@ -83,7 +83,8 @@
         <ul class="header-right">
             <c:if test="${tbUser != null}">
                 <li class="denglu">Hi~ ${tbUser.username} 欢迎回来 <a class="red"
-                                                                  href="/logout">[注销]</a></li>
+                                                                  href="${pageContext.request.contextPath}/logout">[注销]</a>
+                </li>
             </c:if>
             <c:if test="${tbUser == null}">
                 <li class="denglu">Hi~<a class="red" href="/login">请登录!</a> <a href="/register">[免费注册]</a>

@@ -54,6 +54,12 @@
                                placeholder="邮箱/用户名/已验证手机">
                         <input id="password" name="password" type="password" class="itxt"
                                placeholder="密码">
+                        <input id="verification" name="verification" type="text" class="itxt"
+                               placeholder="验证码" style="width: 128px">
+                        <img id="validateCode" src="${pageContext.request.contextPath}/verification"
+                             style="float: right; padding-right: 23px; cursor: pointer"
+                             title="看不清？换一张">
+
                     </div>
                     <div class="remember">
                         <div class="fl">
@@ -83,7 +89,7 @@
     </div>
 </div>
 
-<script src="/static/js/jquery-1.11.3.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/jquery-1.11.3.min.js"></script>
 <script>
   $(function ()
   {

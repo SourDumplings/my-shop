@@ -3,7 +3,9 @@ package com.cz.my.shop.web.ui.controller;
 import com.cz.my.shop.commons.dto.BaseResult;
 import com.cz.my.shop.web.ui.api.UsersApi;
 import com.cz.my.shop.web.ui.dto.TbUser;
+import com.google.code.kaptcha.Constants;
 import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,11 +42,11 @@ public class LoginController
     public String login(TbUser tbUser, Model model, HttpServletRequest request) throws Exception
     {
         // 验证码验证失败
-        // if (!checkVerification(tbUser, request))
-        // {
-        //     model.addAttribute("baseResult", BaseResult.fail("验证码输入错误，请重新输入"));
-        //     return "login";
-        // }
+        if (!checkVerification(tbUser, request))
+        {
+            model.addAttribute("baseResult", BaseResult.fail("验证码输入错误，请重新输入"));
+            return "login";
+        }
 
         TbUser user = UsersApi.login(tbUser);
 
@@ -75,5 +77,12 @@ public class LoginController
     {
         request.getSession().invalidate();
         return "redirect:/index";
+    }
+
+    private boolean checkVerification(TbUser tbUser, HttpServletRequest request)
+    {
+        String verfication = (String) request.getSession()
+            .getAttribute(Constants.KAPTCHA_SESSION_KEY);
+        return StringUtils.equals(verfication, tbUser.getVerification());
     }
 }

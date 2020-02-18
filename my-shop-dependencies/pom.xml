@@ -41,6 +41,7 @@
     <commons-fileupload.version>1.3.2</commons-fileupload.version>
     <apach-httpclient.version>4.5.5</apach-httpclient.version>
     <kaptcha.version>2.3</kaptcha.version>
+    <commons-email.version>1.5</commons-email.version>
   </properties>
 
   <dependencyManagement>
@@ -128,6 +129,11 @@
         <groupId>commons-fileupload</groupId>
         <artifactId>commons-fileupload</artifactId>
         <version>${commons-fileupload.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-email</artifactId>
+        <version>${commons-email.version}</version>
       </dependency>
       <!-- Commons End -->
 
